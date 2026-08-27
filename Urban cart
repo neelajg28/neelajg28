@@ -1,0 +1,213 @@
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urban Cart | Your Everyday Supermart</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #17251b;
+      background: #f7faf5;
+      line-height: 1.6;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(255,255,255,.96);
+      border-bottom: 1px solid #e4eadf;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 7%;
+      backdrop-filter: blur(10px);
+    }
+    .logo { font-size: 27px; font-weight: 800; color: #168447; }
+    .logo span { color: #f39b16; }
+    nav a { color: #334238; text-decoration: none; margin-left: 26px; font-weight: 600; }
+    nav a:hover { color: #168447; }
+    .hero {
+      min-height: 78vh;
+      display: grid; grid-template-columns: 1.05fr .95fr;
+      gap: 40px; align-items: center;
+      padding: 70px 7%;
+      background: linear-gradient(135deg, #eff9ec, #fffaf0);
+    }
+    .badge {
+      display: inline-block; padding: 8px 14px; border-radius: 999px;
+      background: #e0f4df; color: #14753e; font-weight: 700; font-size: 14px;
+      margin-bottom: 18px;
+    }
+    h1 { font-size: clamp(42px, 6vw, 72px); line-height: 1.05; margin-bottom: 20px; }
+    h1 span { color: #168447; }
+    .hero p { font-size: 19px; color: #617064; max-width: 590px; margin-bottom: 30px; }
+    .buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; text-decoration: none; padding: 14px 23px;
+      border-radius: 10px; font-weight: 700; border: 2px solid #168447;
+    }
+    .primary { background: #168447; color: white; }
+    .secondary { color: #168447; background: white; }
+    .hero-card {
+      background: white; border-radius: 28px; padding: 28px;
+      box-shadow: 0 20px 60px rgba(24,70,37,.12);
+    }
+    .shopping-art {
+      min-height: 340px; border-radius: 22px;
+      background: linear-gradient(145deg,#dff4dc,#fff0cc);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 115px;
+    }
+    .mini-row { display: flex; justify-content: space-between; gap: 10px; margin-top: 18px; }
+    .mini { flex: 1; padding: 13px; background: #f5f8f3; border-radius: 12px; text-align: center; font-size: 13px; }
+    .mini b { display: block; font-size: 20px; color: #168447; }
+    section { padding: 75px 7%; }
+    .section-head { text-align: center; max-width: 680px; margin: 0 auto 42px; }
+    .section-head h2 { font-size: 38px; margin-bottom: 10px; }
+    .section-head p { color: #69756c; }
+    .features { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .feature {
+      background: white; padding: 30px; border-radius: 18px;
+      border: 1px solid #e5ece2;
+    }
+    .icon { font-size: 35px; margin-bottom: 13px; }
+    .feature h3 { margin-bottom: 8px; }
+    .feature p { color: #68736b; }
+    .categories {
+      background: #17251b; color: white;
+    }
+    .categories .section-head p { color: #c7d1c8; }
+    .cat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+    .cat {
+      padding: 28px 18px; text-align: center; border-radius: 18px;
+      background: #26372a; transition: .2s;
+    }
+    .cat:hover { transform: translateY(-5px); background: #314634; }
+    .cat .emoji { font-size: 42px; display: block; margin-bottom: 8px; }
+    .offer {
+      text-align: center;
+      background: linear-gradient(120deg,#168447,#0e6534);
+      color: white; margin: 65px 7%; border-radius: 28px; padding: 55px 25px;
+    }
+    .offer h2 { font-size: 38px; margin-bottom: 10px; }
+    .offer p { opacity: .9; margin-bottom: 24px; }
+    .offer .btn { border-color: white; background: white; color: #168447; }
+    footer {
+      padding: 30px 7%; background: #101811; color: #aeb9b0;
+      display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+    }
+    footer strong { color: white; }
+    @media(max-width: 850px) {
+      .hero { grid-template-columns: 1fr; }
+      .features { grid-template-columns: 1fr; }
+      .cat-grid { grid-template-columns: repeat(2,1fr); }
+      nav { padding: 14px 5%; }
+      nav .links { display: none; }
+    }
+    @media(max-width: 480px) {
+      .cat-grid { grid-template-columns: 1fr 1fr; }
+      section { padding: 55px 5%; }
+      .hero { padding: 55px 5%; }
+      .shopping-art { min-height: 250px; font-size: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Urban <span>Cart</span></div>
+    <div class="links">
+      <a href="#home">Home</a>
+      <a href="#features">Why Us</a>
+      <a href="#categories">Categories</a>
+      <a href="#offers">Offers</a>
+    </div>
+  </nav>
+
+  <main id="home">
+    <section class="hero">
+      <div>
+        <div class="badge">🛒 Everything you need, all in one place</div>
+        <h1>Fresh choices.<br><span>Smart shopping.</span></h1>
+        <p>
+          Welcome to Urban Cart — your friendly neighborhood supermart for
+          groceries, fresh produce, household essentials, snacks, beverages,
+          and everyday needs.
+        </p>
+        <div class="buttons">
+          <a class="btn primary" href="#categories">Explore Categories</a>
+          <a class="btn secondary" href="#offers">View Offers</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="shopping-art">🛒🥦🍎</div>
+        <div class="mini-row">
+          <div class="mini"><b>Fresh</b>Daily picks</div>
+          <div class="mini"><b>Value</b>Great prices</div>
+          <div class="mini"><b>Easy</b>One-stop shop</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="section-head">
+        <h2>Why shop at Urban Cart?</h2>
+        <p>We make everyday shopping simple, convenient, and enjoyable.</p>
+      </div>
+      <div class="features">
+        <div class="feature">
+          <div class="icon">🥬</div>
+          <h3>Fresh & Quality</h3>
+          <p>Carefully selected groceries and fresh products for your everyday needs.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">💰</div>
+          <h3>Everyday Value</h3>
+          <p>Great value across a wide range of products for your home and family.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">😊</div>
+          <h3>Friendly Shopping</h3>
+          <p>A convenient supermart experience designed around what shoppers need.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="categories" id="categories">
+      <div class="section-head">
+        <h2>Shop by Category</h2>
+        <p>Discover your everyday essentials at Urban Cart.</p>
+      </div>
+      <div class="cat-grid">
+        <div class="cat"><span class="emoji">🥦</span><b>Fresh Produce</b></div>
+        <div class="cat"><span class="emoji">🍚</span><b>Groceries</b></div>
+        <div class="cat"><span class="emoji">🥛</span><b>Dairy & Eggs</b></div>
+        <div class="cat"><span class="emoji">🍪</span><b>Snacks</b></div>
+        <div class="cat"><span class="emoji">🥤</span><b>Beverages</b></div>
+        <div class="cat"><span class="emoji">🧴</span><b>Home Care</b></div>
+        <div class="cat"><span class="emoji">🧼</span><b>Personal Care</b></div>
+        <div class="cat"><span class="emoji">🏠</span><b>Household</b></div>
+      </div>
+    </section>
+
+    <div class="offer" id="offers">
+      <h2>Great shopping starts here.</h2>
+      <p>Visit Urban Cart for quality products, everyday essentials, and exciting offers.</p>
+      <a class="btn" href="#home">Start Shopping</a>
+    </div>
+  </main>
+
+  <footer>
+    <div><strong>Urban Cart</strong> — Your Everyday Supermart</div>
+    <div>© 2026 Urban Cart. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
+'''
+
+path = Path("/mnt/data/urban_cart_landing_page.html")
+path.write_text(html, encoding="utf-8")
+print(f"Created: {path}")
